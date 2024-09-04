@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using smtoffice.Infrastructure.Common;
+using smtoffice.Infrastructure.Interfaces;
 
 namespace smtoffice.Infrastructure.Extension
 {
@@ -10,6 +12,7 @@ namespace smtoffice.Infrastructure.Extension
 
 
             var connectionString = configuration.GetConnectionString("LocalDbConnection");
+            services.AddScoped<ISqlConnectionFactory>(provider => new SqlConnectionFactory(connectionString!));
         }
     }
 }
