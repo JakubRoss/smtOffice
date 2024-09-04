@@ -7,6 +7,7 @@ namespace smtOffice.Application.Extension
         public static void AddApplication(this IServiceCollection services)
         {
 
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         }
     }
