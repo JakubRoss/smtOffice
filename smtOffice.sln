@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "smtOffice.Application", "sm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "smtOffice.Domain", "smtOffice.Domain\smtOffice.Domain.csproj", "{7C7863A3-EEF2-4F64-8CAA-FEECA1F97A10}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "smtoffice.Infrastructure", "smtoffice.Infrastructure\smtoffice.Infrastructure.csproj", "{579E4243-D2D1-434F-9939-2BF5CEC7BEEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{7C7863A3-EEF2-4F64-8CAA-FEECA1F97A10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C7863A3-EEF2-4F64-8CAA-FEECA1F97A10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C7863A3-EEF2-4F64-8CAA-FEECA1F97A10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{579E4243-D2D1-434F-9939-2BF5CEC7BEEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{579E4243-D2D1-434F-9939-2BF5CEC7BEEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{579E4243-D2D1-434F-9939-2BF5CEC7BEEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{579E4243-D2D1-434F-9939-2BF5CEC7BEEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
