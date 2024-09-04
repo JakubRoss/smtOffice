@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using smtoffice.Infrastructure.Common;
+using smtoffice.Infrastructure.Interfaces;
 
 namespace smtoffice.Infrastructure.Extension
 {
@@ -8,8 +10,21 @@ namespace smtoffice.Infrastructure.Extension
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
 
+            var basePath = AppContext.BaseDirectory;
 
-            var connectionString = configuration.GetConnectionString("LocalDbConnection");
+            var relativeConnectionString = configuration.GetConnectionString("LocalDbConnection");
+
+            if (string.IsNullOrEmpty(relativeConnectionString))
+            {
+                throw new InvalidOperationException("Connection string 'LocalDbConnection' is not configured.");
+            }
+            var dbFullPath = Path.Combine(basePath, relativeConnectionString.Replace("Data Source=", ""));
+            var connectionString = $"Data Source={dbFullPath}";
+
+
+            //var connectionString = configuration.GetConnectionString("LocalDbConnection");
+            Console.WriteLine(connectionString);
+            services.AddScoped<ISqlConnectionFactory>(provider => new SqlConnectionFactory(connectionString!));
         }
     }
 }
