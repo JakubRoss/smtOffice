@@ -1,3 +1,5 @@
+using smtOffice.Application.Extension;
+
 namespace smtOffice.Presentation
 {
     public class Program
@@ -8,6 +10,8 @@ namespace smtOffice.Presentation
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddApplication();
 
             var app = builder.Build();
 
