@@ -1,3 +1,4 @@
+using smtoffice.Infrastructure.Extension;
 using smtOffice.Application.Extension;
 
 namespace smtOffice.Presentation
@@ -11,6 +12,7 @@ namespace smtOffice.Presentation
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddInfrastructure();
             builder.Services.AddApplication();
 
             var app = builder.Build();
