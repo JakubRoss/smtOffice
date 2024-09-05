@@ -13,6 +13,7 @@ namespace smtOffice.Application.Extension
 
             services.AddTransient<IEmployeeService, EmployeeService>();
             services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient(typeof(IDropDownService<>), typeof(DropDownService<>));
         }
     }
 }
