@@ -31,6 +31,7 @@ namespace smtoffice.Infrastructure.Extension
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             services.AddTransient<IPasswordHasher, BcryptPasswordHasher>();
             services.AddTransient<DataSeeder>();
+            services.AddTransient<IDropDownRepository, DropDownRepository>();
         }
     }
 }
