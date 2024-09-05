@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using smtoffice.Infrastructure.Common;
 using smtoffice.Infrastructure.Extension;
 using smtOffice.Application.Extension;
@@ -15,6 +16,14 @@ namespace smtOffice.Presentation
 
             builder.Services.AddInfrastructure(builder.Configuration);
             builder.Services.AddApplication();
+
+            // Add authentication services
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Account/Login";
+                    options.AccessDeniedPath = "/Account/AccessDenied";
+                });
 
             var app = builder.Build();
 
@@ -37,6 +46,7 @@ namespace smtOffice.Presentation
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
