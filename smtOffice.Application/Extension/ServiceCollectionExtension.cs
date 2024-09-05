@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using smtOffice.Application.Interfaces.Services;
+using smtOffice.Application.Services;
 
 namespace smtOffice.Application.Extension
 {
@@ -9,6 +11,7 @@ namespace smtOffice.Application.Extension
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+            services.AddTransient<IEmployeeService, EmployeeService>();
         }
     }
 }
