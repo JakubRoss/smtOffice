@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\smtOffice.Application\smtOffice.Application.csproj" />
     <ProjectReference Include="..\smtoffice.Infrastructure\smtoffice.Infrastructure.csproj" />
   </ItemGroup>
