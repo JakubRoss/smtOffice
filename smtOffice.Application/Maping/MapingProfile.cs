@@ -15,6 +15,10 @@ namespace smtOffice.Application.Maping
                 .ForMember(i => i.HRManagers, opt => opt.Ignore());
             CreateMap<EmployeeDTO, Employee>()
                 .ForMember(i => i.ID, opt => opt.Ignore());
+
+            CreateMap<Project, ProjectDTO>();
+            CreateMap<ProjectDTO, Project>()
+                .ForMember(i => i.ID, opt => opt.Ignore());
         }
     }
 }
