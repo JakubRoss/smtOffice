@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using smtOffice.Application.DTOs;
 using smtOffice.Application.Interfaces;
 using smtOffice.Application.Interfaces.Services;
@@ -100,8 +101,26 @@ namespace smtOffice.Presentation.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            await _projectService.DeleteProjectAsync(id);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _projectService.DeleteProjectAsync(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (SqlException ex)
+            {
+                string errorMessage = string.Empty;
+                if (ex.ToString().Contains("REFERENCE"))
+                    errorMessage = "Cannot delete. Project is in use";
+                else
+                    errorMessage = "Niedopracowana db i kaskadowe zachowanie";
+                TempData["ErrorMessage"] = errorMessage;
+                return RedirectToAction(nameof(Details), new { id = id });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return RedirectToAction(nameof(Index));
+            }
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -126,6 +145,18 @@ namespace smtOffice.Presentation.Controllers
                 await _projectService.UpdateProjectAsync(project);
             }
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddToProject(int projectId, List<int> selectedIds)
+        {
+            if (selectedIds != null && selectedIds.Any())
+            {
+                await _projectService.AddEmployeesToProject(projectId, selectedIds);
+            }
+
+            return RedirectToAction("Index","Employee");
         }
     }
 }
