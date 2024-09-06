@@ -12,6 +12,7 @@ namespace smtOffice.Application.Extension
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddTransient<IEmployeeService, EmployeeService>();
+            services.AddTransient<IAccountService, AccountService>();
         }
     }
 }
