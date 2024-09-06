@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using smtoffice.Infrastructure.Repository;
 using smtOffice.Application.DTOs;
 using smtOffice.Application.Interfaces;
@@ -10,24 +11,22 @@ namespace smtOffice.Presentation.Controllers
 {
     public class EmployeeController(IEmployeeService employeeService,
         IDropDownRepository dropDownRepository,
-        IPasswordHasher passwordHasher) : Controller
+        IPasswordHasher passwordHasher,
+        IProjectService projectService) : Controller
     {
         private readonly IEmployeeService _employeeService = employeeService;
         private readonly IDropDownRepository _dropDownRepository = dropDownRepository;
         private readonly IPasswordHasher _passwordHasher = passwordHasher;
+        private readonly IProjectService _projectService = projectService;
 
         public async Task<IActionResult> Index()
         {
-            var projects = new List<LoginDTO>
-            {
-                new LoginDTO{ Password = "12", Username="PROJEKT1"},
-                new LoginDTO{ Password = "8", Username="PROJEKT_X"},
-            };
+            var projects = await _projectService.GetAllProjectsAsync();
 
             var projectSelectList = projects.Select(p => new SelectListItem
             {
-                Value = p.Password,
-                Text = p.Username
+                Value = p.ID.ToString(),
+                Text = p.ProjectType,
             }).ToList();
             ViewBag.Projects = projectSelectList;
 
@@ -49,15 +48,7 @@ namespace smtOffice.Presentation.Controllers
                 var employee = await _employeeService.ReadEmployeeAsync(id);
                 employee.PasswordHash = string.Empty;
                 var hrmanager = await _employeeService.ReadEmployeeAsync(employee.PeoplePartnerID);
-
-                if (hrmanager == null)
-                {
-                    ViewBag.hrmanager = "mango"; 
-                }
-                else
-                {
-                    ViewBag.hrmanager = hrmanager.FullName; 
-                }
+                ViewBag.hrmanager = hrmanager.FullName; 
                 return View("EmployeeDetails", employee);
             }
             catch (Exception)
@@ -117,7 +108,7 @@ namespace smtOffice.Presentation.Controllers
 
                 if (employeeDTO.Username != currentEmployee.Username)
                 {
-                    var isTaken = await _employeeService.ReadEmployeeAsync(employeeDTO.Username);
+                    var isTaken = await _employeeService.ReadEmployeeByUsernameAsync(employeeDTO.Username);
                     if (isTaken != null)
                         ModelState.AddModelError("Username", "Username is taken");
                 }
@@ -164,9 +155,20 @@ namespace smtOffice.Presentation.Controllers
                 await _employeeService.DeleteEmployeeAsync(id);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (SqlException ex)
             {
-                return View();
+                string errorMessage= string.Empty;
+                if (ex.ToString().Contains("REFERENCE"))
+                    errorMessage = "Cannot delete. Employee is in use";
+                else
+                    errorMessage = "Niedopracowana db i kaskadowe zachowanie";
+                TempData["ErrorMessage"] = errorMessage;
+                return RedirectToAction(nameof(Details), new { id = id });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return RedirectToAction(nameof(Index));
             }
         }
     }
