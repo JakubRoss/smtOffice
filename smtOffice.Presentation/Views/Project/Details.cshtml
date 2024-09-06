@@ -1,0 +1,80 @@
+﻿@model smtOffice.Application.DTOs.ProjectDTO
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Project</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Project Type
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ProjectType)
+        </dd>
+        <dt class = "col-sm-2 mt-2">
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+        <dd class = "col-sm-10 mt-2">
+            @Model.StartDate.ToString("yyyy-MM-dd")
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @if (Model.EndDate.HasValue)
+            {
+                @Model.EndDate.Value.ToString("yyyy-MM-dd")
+            }
+            else
+            {
+                <span>N/A</span>
+            }
+        </dd>
+        <dt class = "col-sm-2">
+            Project Manager
+        </dt>
+        <dd class = "col-sm-10">
+            @ViewBag.ProjectManager
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Comment)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Comment)
+        </dd>
+        <dt class="col-sm-2 mt-2">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd class = "col-sm-10 mt-2">
+    @Html.DisplayFor(model => model.Status)
+    @if (Model.Status == "Inactive")
+    {
+        <form asp-action="Active" method="post" class="d-inline">
+            <input type="hidden" name="id" value="@Model.ID" />
+            <button type="submit" class="mx-lg-5 btn btn-dark">Active</button>
+        </form>
+    }
+    else
+    {
+        <form asp-action="Deactive" method="post" class="d-inline">
+            <input type="hidden" name="id" value="@Model.ID" />
+            <button type="submit" class="mx-lg-5 btn btn-dark">Deactivate</button>
+        </form>
+    }
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    <a asp-action="Index">Back to List</a>
+</div>
+<hr />
+<form asp-action="Delete" method="post" class="d-inline">
+    <input type="hidden" name="id" value="@Model.ID" />
+    <button type="submit" class="mt-5 btn btn-outline-danger">Delete</button>
+</form>
