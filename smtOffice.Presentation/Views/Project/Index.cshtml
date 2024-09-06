@@ -1,0 +1,64 @@
+﻿@model IEnumerable<smtOffice.Application.DTOs.ProjectDTO>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Projects</h1>
+
+<table class="table mt-lg-5">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProjectType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjectType)
+            </td>
+            <td>
+                    @item.StartDate.ToString("yyyy-MM-dd")
+            </td>
+            <td>
+                    @if (item.EndDate.HasValue)
+                    {
+                        @item.EndDate.Value.ToString("yyyy-MM-dd")
+                    }
+                    else
+                    {
+                        <span>N/A</span>
+                    }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new {id = item.ID})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div>
+    <a class="btn btn-dark mt-5" asp-area="" asp-controller="Project" asp-action="Create">Add Project</a>
+</div>
