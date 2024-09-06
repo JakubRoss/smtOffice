@@ -1,0 +1,66 @@
+﻿@model IEnumerable<smtOffice.Application.DTOs.EmployeeDTO>
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>List</h1>
+<h4>Employee</h4>
+<form asp-controller="Employee" asp-action="AddToProject" method="post">
+    <div class="form-group mt-5 border p-4">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>@Html.DisplayNameFor(model => model.Username)</th>
+                    <th>@Html.DisplayNameFor(model => model.FullName)</th>
+                    <th>@Html.DisplayNameFor(model => model.Subdivision)</th>
+                    <th>@Html.DisplayNameFor(model => model.Position)</th>
+                    <th>@Html.DisplayNameFor(model => model.Status)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="selectedIds" value="@item.ID" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Username)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Subdivision)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Position)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Details", "Details", new { id = item.ID })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <label class="mt-5" for="projectSelect">Select Project</label>
+        <div class="input-group">
+            <select id="projectSelect" name="projectId" class="form-control">
+                @foreach (var project in ViewBag.Projects as IEnumerable<SelectListItem>)
+                {
+                    <option value="@project.Value">@project.Text</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-secondary mt-5">Add Selected to Project</button>
+    </div>
+</form>
+<div>
+    <a class="btn btn-dark mt-5 mx-4" asp-area="" asp-controller="Account" asp-action="Create">New Employeet</a>
+</div>
+
