@@ -5,6 +5,7 @@ using smtoffice.Infrastructure.Interfaces;
 using smtoffice.Infrastructure.Repository;
 using smtOffice.Application.Interfaces;
 using smtOffice.Application.Interfaces.Repository;
+using smtOffice.Infrastructure.Repository;
 
 namespace smtoffice.Infrastructure.Extension
 {
@@ -21,6 +22,7 @@ namespace smtoffice.Infrastructure.Extension
             services.AddTransient<DataSeeder>();
             services.AddTransient<IDropDownRepository, DropDownRepository>();
             services.AddTransient<IProjectRepository, ProjectRepository>();
+            services.AddTransient<IApprovalRequestRepository, ApprovalRequestRepository>();
         }
     }
 }
