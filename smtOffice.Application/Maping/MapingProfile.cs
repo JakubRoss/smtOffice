@@ -19,6 +19,10 @@ namespace smtOffice.Application.Maping
             CreateMap<Project, ProjectDTO>();
             CreateMap<ProjectDTO, Project>()
                 .ForMember(i => i.ID, opt => opt.Ignore());
+
+            CreateMap<ApprovalRequest, ApprovalRequestDTO>();
+            CreateMap<ApprovalRequestDTO, ApprovalRequest>()
+                .ForMember(i => i.ID, opt => opt.Ignore());
         }
     }
 }
