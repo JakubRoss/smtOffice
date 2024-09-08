@@ -35,6 +35,7 @@ namespace smtoffice.Infrastructure.Extension
             services.AddTransient<IDropDownRepository, DropDownRepository>();
             services.AddTransient<IProjectRepository, ProjectRepository>();
             services.AddTransient<IApprovalRequestRepository, ApprovalRequestRepository>();
+            services.AddTransient<ILeaveRequestRepository, LeaveRequestRepository>();
         }
     }
 }
