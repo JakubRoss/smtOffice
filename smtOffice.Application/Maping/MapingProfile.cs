@@ -23,6 +23,11 @@ namespace smtOffice.Application.Maping
             CreateMap<ApprovalRequest, ApprovalRequestDTO>();
             CreateMap<ApprovalRequestDTO, ApprovalRequest>()
                 .ForMember(i => i.ID, opt => opt.Ignore());
+
+            CreateMap<LeaveRequest, LeaveRequestDTO>()
+                .ForMember(i => i.AbsenceReasons, opt => opt.Ignore());
+            CreateMap<LeaveRequestDTO, LeaveRequest>()
+                .ForMember(i => i.ID, opt => opt.Ignore());
         }
     }
 }
