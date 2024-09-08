@@ -16,6 +16,7 @@ namespace smtOffice.Application.Extension
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient(typeof(IDropDownService<>), typeof(DropDownService<>));
             services.AddTransient<IProjectService, ProjectService>();
+            services.AddTransient<IApprovalRequestService, ApprovalRequestService>();
         }
     }
 }
