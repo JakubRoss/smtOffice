@@ -1,0 +1,39 @@
+﻿@model IEnumerable<smtOffice.Application.DTOs.ApprovalLeaveRequestDTO>
+
+@{
+    ViewData["Title"] = "Approval Requests Index";
+}
+
+<h1>Approval Requests</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Leave Request ID</th>
+            <th>Status</th>
+            <th>Approver ID</th>
+            <th>Employee Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ApprovalRequest.ID</td>
+                <td>@item.LeaveRequest.ID</td>
+                <td>@item.ApprovalRequest.Status</td>
+                <td>@item.ApprovalRequest.ApproverID</td>
+                <td>@item.FullName</td>
+                <td>@item.LeaveRequest.StartDate.ToShortDateString()</td>
+                <td>@item.LeaveRequest.EndDate.ToShortDateString()</td>
+                <td>
+                    <a href="@Url.Action("Details", new { approvalID = item.ApprovalRequest.ID })" class="btn btn-info">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
