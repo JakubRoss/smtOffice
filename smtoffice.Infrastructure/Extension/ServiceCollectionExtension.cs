@@ -30,6 +30,7 @@ namespace smtoffice.Infrastructure.Extension
             services.AddScoped<ISqlConnectionFactory>(provider => new SqlConnectionFactory(connectionString!));
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             services.AddTransient<IPasswordHasher, BcryptPasswordHasher>();
+            services.AddTransient<DataSeeder>();
         }
     }
 }
