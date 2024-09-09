@@ -1,3 +1,4 @@
+using smtoffice.Infrastructure.Common;
 using smtoffice.Infrastructure.Extension;
 using smtOffice.Application.Extension;
 
@@ -16,6 +17,12 @@ namespace smtOffice.Presentation
             builder.Services.AddApplication();
 
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var dataSeeder = scope.ServiceProvider.GetRequiredService<DataSeeder>();
+                dataSeeder.Seed();
+            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
