@@ -18,6 +18,7 @@ namespace smtOffice.Application.Extension
             services.AddTransient<IProjectService, ProjectService>();
             services.AddTransient<IApprovalRequestService, ApprovalRequestService>();
             services.AddTransient<ILeaveRequestService, LeaveRequestService>();
+            services.AddTransient<ILeaveApprovalCoordinatorService, LeaveApprovalCoordinatorService>();
         }
     }
 }
