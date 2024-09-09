@@ -1,0 +1,38 @@
+﻿@using System.Security.Claims
+@model smtOffice.Application.DTOs.ApprovalLeaveRequestDTO
+
+@{
+    ViewData["Title"] = "Approval Request Details";
+}
+
+<div>
+    <h2>Approval Request</h2>
+    <p><strong>Status:</strong> @Model.ApprovalRequest.Status</p>
+    <p><strong>Leave Request ID:</strong> @Model.ApprovalRequest.LeaveRequestID</p>
+</div>
+
+<div>
+    <h2>Leave Request</h2>
+    <p><strong>Status:</strong> @Model.LeaveRequest.Status</p>
+    <p><strong>Start Date:</strong> @Model.LeaveRequest.StartDate.ToShortDateString()</p>
+    <p><strong>End Date:</strong> @Model.LeaveRequest.EndDate.ToShortDateString()</p>
+    <p><strong>Employee:</strong> @Model.FullName</p>
+    <p><strong>Comment:</strong> @Model.LeaveRequest.Comment</p>
+</div>
+<hr />
+<div class="mt-5">
+    @if(Model.ApprovalRequest.Status == "New")
+    {
+     <form asp-action="ProcessRequest" method="post">
+        <input type="hidden" name="leaveRequestID" value="@Model.LeaveRequest.ID" />
+        <input type="hidden" name="approverID" value="@User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value" />
+        <div class="form-group">
+            <label for="rejectionComment">Comment:</label>
+            <textarea id="rejectionComment" name="Comment" class="form-control"></textarea>
+        </div>
+        <button type="submit" name="action" value="Approve" class="btn btn-success mt-3">Approve</button>
+        <button type="submit" name="action" value="Reject" class="btn btn-danger mt-3">Reject</button>   
+    </form>
+    }
+
+</div>
