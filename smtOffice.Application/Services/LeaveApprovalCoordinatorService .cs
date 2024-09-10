@@ -4,19 +4,20 @@ using smtoffice.Infrastructure.Repository;
 using smtOffice.Application.Interfaces;
 using smtOffice.Application.DTOs;
 using AutoMapper;
+using smtOffice.Application.Interfaces.Services;
 
 namespace smtOffice.Application.Services
 {
     internal class LeaveApprovalCoordinatorService(ILeaveRequestRepository leaveRequestRepository,
                                            IApprovalRequestRepository approvalRequestRepository,
-                                           IEmployeeRepository employeeRepository,
                                            IProjectRepository projectRepository,
+                                           IEmployeeService employeeService,
                                            IMapper mapper) : ILeaveApprovalCoordinatorService
     {
         private readonly ILeaveRequestRepository _leaveRequestRepository = leaveRequestRepository;
         private readonly IApprovalRequestRepository _approvalRequestRepository = approvalRequestRepository;
-        private readonly IEmployeeRepository _employeeRepository = employeeRepository;
         private readonly IProjectRepository _projectRepository = projectRepository;
+        private readonly IEmployeeService _employeeService = employeeService;
         private readonly IMapper _mapper = mapper;
 
         public async Task ApproveLeaveRequestAsync(int leaveRequestID, int approverID, string approvalComment)
@@ -35,11 +36,11 @@ namespace smtOffice.Application.Services
             if (approvalRequest.ApproverID != approverID)
                 throw new InvalidOperationException("Unauthorized approver.");
 
-            var employee = await _employeeRepository.ReadEmployeeAsync(leaveRequest.EmployeeID);
+            var employee = await _employeeService.ReadEmployeeAsync(leaveRequest.EmployeeID);
             if (employee == null)
                 throw new InvalidOperationException("Unauthorized approver.");
             employee.OutOfOfficeBalance = (leaveRequest.EndDate - leaveRequest.StartDate).Days;
-            await _employeeRepository.UpdateEmployeeAsync(employee);
+            await _employeeService.UpdateEmployeeAsync(employee);
 
             // Update approval status
             approvalRequest.Status = "Approved";
@@ -92,7 +93,7 @@ namespace smtOffice.Application.Services
                 throw new InvalidOperationException("Invalid leave request submission.");
 
 
-            var employee = await _employeeRepository.ReadEmployeeAsync(employeeID);
+            var employee = await _employeeService.ReadEmployeeAsync(employeeID);
             if (employee == null)
                 throw new ArgumentNullException(nameof(employee));
 
@@ -134,7 +135,7 @@ namespace smtOffice.Application.Services
                 var leaveRequest = await _leaveRequestRepository.ReadLeaveRequestAsync(approvalRequest.LeaveRequestID);
                 if (leaveRequest != null)
                 {
-                    var employee = await _employeeRepository.ReadEmployeeAsync(leaveRequest.EmployeeID);
+                    var employee = await _employeeService.ReadEmployeeAsync(leaveRequest.EmployeeID);
 
                     // Mapuj obiekty domenowe na DTO
                     var leaveRequestDTO = _mapper.Map<LeaveRequestDTO>(leaveRequest);
@@ -166,7 +167,7 @@ namespace smtOffice.Application.Services
                 throw new InvalidOperationException("Leave request not found.");
             }
 
-            var employee = await _employeeRepository.ReadEmployeeAsync(leaveRequest.EmployeeID);
+            var employee = await _employeeService.ReadEmployeeAsync(leaveRequest.EmployeeID);
             if (employee == null)
             {
                 throw new InvalidOperationException("Employee not found.");
