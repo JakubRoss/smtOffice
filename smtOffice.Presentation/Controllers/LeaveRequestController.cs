@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using smtoffice.Infrastructure.Repository;
@@ -34,7 +35,7 @@ namespace smtOffice.Presentation.Controllers
 
             return isInt;
         }
-
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             int employeeID;
@@ -45,7 +46,7 @@ namespace smtOffice.Presentation.Controllers
             }
             return RedirectToAction("Index","Account");
         }
-
+        [Authorize]
         public async Task<IActionResult> Create()
         {
             var absenceReasons = await _dropDownRepository.GetNameFromTableAsync<AbsenceReason>();
@@ -65,6 +66,7 @@ namespace smtOffice.Presentation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create(LeaveRequestDTO leaveRequestDto)
         {
             if (leaveRequestDto.StartDate >= leaveRequestDto.EndDate)
@@ -90,7 +92,7 @@ namespace smtOffice.Presentation.Controllers
             }
             return View(leaveRequestDto);
         }
-
+        [Authorize]
         public async Task<IActionResult> Details(int leaveRequestID)
         {
             int myId;
@@ -108,6 +110,7 @@ namespace smtOffice.Presentation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Delete(int leaveRequestID)
         {
             int myId;

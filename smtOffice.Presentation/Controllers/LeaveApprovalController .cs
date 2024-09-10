@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using smtOffice.Application.Interfaces;
 using System.Security.Claims;
 
@@ -12,6 +13,7 @@ namespace smtOffice.Presentation.Controllers
         {
             _leaveApprovalCoordinatorService = leaveApprovalCoordinatorService;
         }
+        [Authorize(Roles = "admin,hrmanager,projectmanager")]
         public async Task<IActionResult> Index()
         {
             try
@@ -29,7 +31,7 @@ namespace smtOffice.Presentation.Controllers
                 return View();
             }
         }
-
+        [Authorize(Roles = "admin,hrmanager,projectmanager")]
         public async Task<IActionResult> Details(int approvalID)
         {
             try
@@ -47,6 +49,7 @@ namespace smtOffice.Presentation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin,hrmanager,projectmanager")]
         public async Task<IActionResult> ProcessRequest(int leaveRequestID, int approverID, string Comment, string action)
         {
             try
@@ -74,12 +77,11 @@ namespace smtOffice.Presentation.Controllers
 
         // POST: /ApprovalRequests/Submit/5
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Submit(int leaveRequestID)
         {
             try
             {
-                if(!User.Identity.IsAuthenticated)
-                    return RedirectToAction("Index","Account");
                 int employeeID = int.Parse(User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).FirstOrDefault()!.Value);
                 await _leaveApprovalCoordinatorService.SubmitRequestAsync(leaveRequestID, employeeID);
                 return RedirectToAction(nameof(Details), new { id = leaveRequestID });
