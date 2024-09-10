@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
 using smtOffice.Application.DTOs;
@@ -17,13 +18,13 @@ namespace smtOffice.Presentation.Controllers
             _projectService = projectService;
             _employeeService = employeeService;
         }
-
+        [Authorize(Roles = "projectmanager,admin")]
         public async Task<IActionResult> Index()
         {
             var projects = await _projectService.GetAllProjectsAsync();
             return View(projects);
         }
-
+        [Authorize(Roles = "projectmanager,admin")]
         public async Task<IActionResult> Details(int id)
         {
             var project = await _projectService.GetProjectByIdAsync(id);
@@ -35,7 +36,7 @@ namespace smtOffice.Presentation.Controllers
             ViewBag.ProjectManager = projectManager.FullName;
             return View(project);
         }
-
+        [Authorize(Roles = "projectmanager,admin")]
         public async Task<IActionResult> Create()
         {
             var projectmanagers = await _employeeService.ReadEmployeeAsync("projectmanager");
@@ -54,6 +55,7 @@ namespace smtOffice.Presentation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "projectmanager,admin")]
         public async Task<IActionResult> Create(ProjectDTO project)
         {
             if (ModelState.IsValid)
@@ -65,7 +67,7 @@ namespace smtOffice.Presentation.Controllers
             }
             return View(project);
         }
-
+        [Authorize(Roles = "projectmanager,admin")]
         public async Task<IActionResult> Edit(int id)
         {
             var project = await _projectService.GetProjectByIdAsync(id);
@@ -87,6 +89,7 @@ namespace smtOffice.Presentation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "projectmanager,admin")]
         public async Task<IActionResult> Edit(ProjectDTO project)
         {
             if (ModelState.IsValid)
@@ -99,6 +102,7 @@ namespace smtOffice.Presentation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "projectmanager,admin")]
         public async Task<IActionResult> Delete(int id)
         {
             try
@@ -124,6 +128,7 @@ namespace smtOffice.Presentation.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "projectmanager,admin")]
         public async Task<IActionResult> Deactive(int id)
         {
             var project = await _projectService.GetProjectByIdAsync(id);
@@ -136,6 +141,7 @@ namespace smtOffice.Presentation.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "projectmanager,admin")]
         public async Task<IActionResult> Active(int id)
         {
             var project = await _projectService.GetProjectByIdAsync(id);
@@ -149,6 +155,7 @@ namespace smtOffice.Presentation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "projectmanager,admin")]
         public async Task<IActionResult> AddToProject(int projectId, List<int> selectedIds)
         {
             if (selectedIds != null && selectedIds.Any())

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
 using smtoffice.Infrastructure.Repository;
@@ -19,6 +20,7 @@ namespace smtOffice.Presentation.Controllers
         private readonly IPasswordHasher _passwordHasher = passwordHasher;
         private readonly IProjectService _projectService = projectService;
 
+        [Authorize(Roles = "hrmanager,admin, projectmanager")]
         public async Task<IActionResult> Index()
         {
             var projects = await _projectService.GetAllProjectsAsync();
@@ -41,6 +43,7 @@ namespace smtOffice.Presentation.Controllers
             return View(employeesDto);
         }
         [HttpGet]
+        [Authorize(Roles = "hrmanager,admin, projectmanager")]
         public async Task<IActionResult> Details(int id)
         {
             try
@@ -57,6 +60,7 @@ namespace smtOffice.Presentation.Controllers
             }
         }
         [HttpGet]
+        [Authorize(Roles = "hrmanager,admin, projectmanager")]
         public async Task<IActionResult> Edit(int id)
         {
             EmployeeDTO employee;
@@ -95,6 +99,7 @@ namespace smtOffice.Presentation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "hrmanager,admin")]
         public async Task<IActionResult> Edit(EmployeeDTO employeeDTO)
         {
             try
@@ -148,6 +153,7 @@ namespace smtOffice.Presentation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int id)
         {
             try
