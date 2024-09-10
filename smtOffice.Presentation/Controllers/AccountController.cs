@@ -12,6 +12,7 @@
     using Microsoft.AspNetCore.Mvc.Rendering;
     using smtOffice.Domain.Entity.dropdown;
     using smtoffice.Infrastructure.Repository;
+    using Microsoft.AspNetCore.Authorization;
 
     public class AccountController(IAccountService accountService,
         IEmployeeRepository employeeRepository,
@@ -69,7 +70,7 @@
                 {
 
                     IsPersistent = true,
-                    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(15)
                 };
 
                 await HttpContext.SignInAsync(
@@ -84,11 +85,13 @@
             return View(model);
         }
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Account");
         }
+        [Authorize]
         public async Task<IActionResult> Details()
         {
             var id = User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).FirstOrDefault()!.Value;
@@ -100,6 +103,7 @@
 
             return View(employee);
         }
+        [Authorize(Roles = "hrmanager,admin")]
         public async Task<IActionResult> Create()
         {
             var subdivisions = await _dropDownRepository.GetNameFromTableAsync<Subdivision>();
@@ -131,6 +135,7 @@
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "hrmanager,admin")]
         public async Task<IActionResult> Create(EmployeeDTO employeeDTO)
         {
             employeeDTO.Status = "Active";
