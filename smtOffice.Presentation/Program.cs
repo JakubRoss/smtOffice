@@ -12,7 +12,7 @@ namespace smtOffice.Presentation
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddInfrastructure();
+            builder.Services.AddInfrastructure(builder.Configuration);
             builder.Services.AddApplication();
 
             var app = builder.Build();
