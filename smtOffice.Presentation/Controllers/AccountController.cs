@@ -26,6 +26,11 @@
         private readonly IDropDownRepository _dropDownRepository = dropDownRepository;
         private readonly IPasswordHasher _passwordHasher = passwordHasher;
 
+        [Route("/overview")]
+        public ActionResult Overview()
+        {
+            return View();
+        }
         public ActionResult AccessDenied()
         {
             return View();

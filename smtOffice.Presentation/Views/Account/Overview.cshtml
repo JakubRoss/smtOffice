@@ -1,0 +1,165 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@{
+    ViewData["Title"] = "General Functionality Overview";
+}
+<div class="bg-warning bg-opacity-50 text-center py-2">
+    <strong>First login: admin/admin</strong>
+</div>
+
+<div class="container">
+    <h1 class="mt-5 mb-4">@ViewData["Title"]</h1>
+
+    <h2 class="blue-text">1. HR Manager</h2>
+    <p>Upon opening the system, the HR Manager will see options to navigate to the following sections:</p>
+    <ul>
+        <li>List of Employees</li>
+        <li>List of Projects</li>
+        <li>List of Leave Requests</li>
+        <li>List of Approval Requests</li>
+    </ul>
+
+    <h4>With a List of Employees, the HR Manager can:</h4>
+    <ul>
+        <li><s>Sort table rows using sorting in the column headers.</s> <span class="text-danger text-opacity-50 mx-5">Added next week</span></li>
+        <li><s>Search by name for table rows.</s> <span class="text-danger text-opacity-50 mx-5">Added next week</span></li>
+        <li>Add, update, or deactivate employees in the list.</li>
+    </ul>
+
+    <h4>With a List of Approval Requests, the HR Manager can:</h4>
+    <ul>
+        <li><s>Sort table rows using sorting in the column headers.</s> <span class="text-danger text-opacity-50 mx-5">Added next week</span></li>
+        <li><s>Search by request number for table rows.</s> <span class="text-danger text-opacity-50 mx-5">Added next week</span></li>
+        <li>Open a request – a new form opens with details.</li>
+        <li>Approve the request – the related leave request is updated with the corresponding status, and employee absence balance is recalculated.</li>
+        <li><strong>Reject the request</strong> – the related leave request is updated with the corresponding status. <em>Note: Rejection functionality should be possible to ensure complete approval process management.</em></li>
+    </ul>
+
+    <h4>With a List of Leave Requests, the HR Manager can:</h4>
+    <ul>
+        <li><s>Sort table rows using sorting in the column headers.</s> <span class="text-danger text-opacity-50 mx-5">Added next week</span></li>
+        <li><s>Search by request number for table rows.</s> <span class="text-danger text-opacity-50 mx-5">Added next week</span></li>
+        <li>Open a request – a new form opens with details.</li>
+    </ul>
+
+    <h4>With a List of Projects, the HR Manager can:</h4>
+    <ul>
+        <li><s>Sort table rows using sorting in the column headers.</s> <span class="text-danger text-opacity-50 mx-5">Added next week</span></li>
+        <li><s>Use filters for table rows.</s> <span class="text-danger text-opacity-50 mx-5">Added next week</span></li>
+        <li><s>Search by request number for table rows.</s> <span class="text-danger text-opacity-50 mx-5">Added next week</span></li>
+        <li>Open a project – a new form opens with details.</li>
+    </ul>
+
+    <h2 class="blue-text">2. Project Manager</h2>
+    <p>Upon opening the system, the Project Manager will see options to navigate to the following sections:</p>
+    <ul>
+        <li>List of Employees</li>
+        <li>List of Projects</li>
+        <li>List of Leave Requests</li>
+        <li>List of Approval Requests</li>
+    </ul>
+
+    <h4>With a List of Employees, the Project Manager can:</h4>
+    <ul>
+        <li><s>Sort table rows using sorting in the column headers.</s> <span class="text-danger text-opacity-50 mx-5">Added next week</span></li>
+        <li><s>Use filters for table rows.</s> <span class="text-danger text-opacity-50 mx-5">Added next week</span></li>
+        <li><s>Search by name for table rows.</s> <span class="text-danger text-opacity-50 mx-5">Added next week</span></li>
+        <li>Open an employee – a new form opens with details.</li>
+        <li>Assign an employee to projects.</li>
+    </ul>
+
+    <h4>With a List of Approval Requests, the Project Manager can:</h4>
+    <ul>
+        <li><s>Sort table rows using sorting in the column headers.</s> <span class="text-danger text-opacity-50 mx-5">Added next week</span></li>
+        <li><s>Use filters for table rows.</s> <span class="text-danger text-opacity-50 mx-5">Added next week</span></li>
+        <li><s>Search by request number for table rows.</s> <span class="text-danger text-opacity-50 mx-5">Added next week</span></li>
+        <li>Open a request – a new form opens with details.</li>
+        <li>Approve the request – the related leave request is updated with the corresponding status, and employee absence balance is recalculated.</li>
+        <li><strong>Reject the request</strong> – the related leave request is updated with the corresponding status. <em>Note: Rejection functionality should be possible to ensure complete approval process management.</em></li>
+    </ul>
+
+    <h4>With a List of Leave Requests, the Project Manager can:</h4>
+    <ul>
+        <li><s>Sort table rows using sorting in the column headers.</s> <span class="text-danger text-opacity-50 mx-5">Added next week</span></li>
+        <li><s>Use filters for table rows.</s> <span class="text-danger text-opacity-50 mx-5">Added next week</span></li>
+        <li><s>Search by request number for table rows.</s> <span class="text-danger text-opacity-50 mx-5">Added next week</span></li>
+        <li>Open a request – a new form opens with details.</li>
+    </ul>
+
+    <h4>With a List of Projects, the Project Manager can:</h4>
+    <ul>
+        <li><s>Sort table rows using sorting in the column headers.</s> <span class="text-danger text-opacity-50 mx-5">Added next week</span></li>
+        <li><s>Use filters for table rows.</s> <span class="text-danger text-opacity-50 mx-5">Added next week</span></li>
+        <li><s>Search by request number for table rows.</s> <span class="text-danger text-opacity-50 mx-5">Added next week</span></li>
+        <li>Open a project – a new form opens with details.</li>
+        <li>Add, update, or deactivate projects in the list.</li>
+    </ul>
+
+    <h2 class="blue-text">3. Company Employees</h2>
+    <p>Upon opening the system, employees will see options to navigate to the following sections:</p>
+    <ul>
+        <li>List of their projects</li>
+        <li>List of leave requests</li>
+    </ul>
+
+    <h4>With a List of Leave Requests, employees can:</h4>
+    <ul>
+        <li><s>Sort table rows using sorting in the column headers.</s> <span class="text-danger text-opacity-50 mx-5">Added next week</span></li>
+        <li><s>Use filters for table rows.</s> <span class="text-danger text-opacity-50 mx-5">Added next week</span></li>
+        <li><s>Search by request number for table rows.</s> <span class="text-danger text-opacity-50 mx-5">Added next week</span></li>
+        <li>Open a new or existing request – a form opens where employees can create and update the request.</li>
+        <li>Submit the request – the status is updated to “Submitted,” and a new approval request is created for the responsible HR Manager and Project Managers responsible for the employee’s projects.</li>
+        <li>Cancel the request – the status is updated to “Canceled,” and any existing approval requests are canceled.</li>
+    </ul>
+</div>
+
+<title>System Roles</title>
+<div class="container my-5">
+    <h2 class="text-center mb-4 blue-text">Roles in the System</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <thead class="bg-opacity-25 bg-dark">
+                    <tr>
+                        <th>Role</th>
+                        <th>Description of Main Tasks</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-light">
+                    <tr>
+                        <td>Employee</td>
+                        <td>Creates a leave request</td>
+                    </tr>
+                    <tr>
+                        <td>HR Manager</td>
+                        <td>Manages the list of employees<br>Approves/rejects requests</td>
+                    </tr>
+                    <tr>
+                        <td>Project Manager</td>
+                        <td>Manages the list of projects<br>Approves/rejects requests</td>
+                    </tr>
+                    <tr>
+                        <td>Administrator</td>
+                        <td>Grants access rights<br>Manages all data</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="container text-center mt-5 mb-5">
+    <a class="display-6 text-decoration-none blue-text">DB Schema Overview</a>
+</div>
+<div class="mb-5 text-center">
+    <img src="~/dbschema.svg" alt="Db Schema" class="d-block mx-auto p-3" style="max-width: 100%;" />
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
