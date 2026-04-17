@@ -10,7 +10,8 @@ namespace smtOffice.Application.Extension
         public static void AddApplication(this IServiceCollection services)
         {
 
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(cfg => { }, typeof(ServiceCollectionExtension));
 
             services.AddTransient<IEmployeeService, EmployeeService>();
             services.AddTransient<IAccountService, AccountService>();
